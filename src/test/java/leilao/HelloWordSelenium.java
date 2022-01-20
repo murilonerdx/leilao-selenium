@@ -9,6 +9,7 @@ public class HelloWordSelenium {
 
     @Test
     public void hello(){
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         WebDriver browser = new ChromeDriver();
         browser.navigate().to("http://localhost:8080/leiloes");
         browser.quit();

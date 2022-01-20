@@ -30,11 +30,16 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-chrome-driver</artifactId>
-			<version>4.1.1</version>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>25.0-jre</version>
 		</dependency>
 
 		<dependency>
