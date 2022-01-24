@@ -27,7 +27,7 @@ public class LoginTest {
 
     @org.junit.jupiter.api.Test
     public void deveriaEfetuarLoginComDadosValidos() {
-        paginaLogin.setForm("username", "password");
+        paginaLogin.setForm("username", "password" );
         paginaLogin.submitLoginPage("login-form");
 
         String nomeUsuarioLogado = paginaLogin.getNameUser("usuario-logado");

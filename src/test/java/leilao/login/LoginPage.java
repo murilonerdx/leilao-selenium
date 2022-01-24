@@ -1,25 +1,20 @@
 package leilao.login;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import leilao.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LoginPage {
+public class LoginPage extends PageObject {
     protected static final String URL_LOGIN = "http://localhost:8080/login";
-    private WebDriver browser;
 
     public LoginPage() {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        this.browser = new ChromeDriver();
+        super(null);
         this.browser.navigate().to(URL_LOGIN);
     }
 
     public LoginPage(String URL){
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        this.browser = new ChromeDriver();
+        super(null);
         this.browser.navigate().to(URL);
     }
 
@@ -39,12 +34,28 @@ public class LoginPage {
         if(args.length > 2){
             throw new RuntimeException("Parameters are beyond the limit");
         }
-        if(args == null){
-            args[0] = "aas";
-            args[1] = "pass";
+
+        browser.findElement(By.id(idParamUsernameOrEmail)).sendKeys(args.length == 0 ? "fulano" : args[0]);
+        browser.findElement(By.id(idParamPassword)).sendKeys(args.length == 0 ? "pass" : args[1]);
+    }
+
+    private void preencherFormularioDeLogin(String username, String password) {
+        browser.findElement(By.id("username")).sendKeys(username);
+        browser.findElement(By.id("password")).sendKeys(password);
+    }
+
+    public LeiloesPage efetuarLogin(String username, String password) {
+        this.preencherFormularioDeLogin(username, password);
+        browser.findElement(By.id("login-form")).submit();
+        return new LeiloesPage(browser);
+    }
+
+    public String getNomeUsuarioLogado() {
+        try {
+            return browser.findElement(By.id("usuario-logado")).getText();
+        } catch (NoSuchElementException e) {
+            return null;
         }
-        browser.findElement(By.id(idParamUsernameOrEmail)).sendKeys(args[0]);
-        browser.findElement(By.id(idParamPassword)).sendKeys(args[1]);
     }
 
     public void submitLoginPage(String idLogin){
